@@ -6,8 +6,6 @@ results/
 temp/
 test/
 
-*.ipynb
-data/*
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
@@ -42,7 +40,7 @@ pip-delete-this-directory.txt
 
 # PyCharm
 .idea/
-
+*.ipynb
 # Dropbox
 .dropbox.attr
 
