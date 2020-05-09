@@ -59,7 +59,10 @@ class NeveraConfig(Config):
     """
     # Give the configuration a recognizable name
     NAME = "nevera"
-
+    IMAGE_RESIZE_MODE = "square"
+    IMAGE_MIN_DIM = 198
+    IMAGE_MAX_DIM = 320
+    IMAGE_MIN_SCALE = 0
     # We use a GPU with 12GB memory, which can fit two images.
     # Adjust down if you use a smaller GPU.
     IMAGES_PER_GPU = 2
