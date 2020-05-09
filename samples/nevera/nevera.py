@@ -68,7 +68,7 @@ class NeveraConfig(Config):
     IMAGES_PER_GPU = 2
 
     # Number of classes (including background)
-    NUM_CLASSES = 1 + 1  # Background + nevera
+    NUM_CLASSES = 1 + 3  # Background + nevera + estufa + microondas
 
     # Number of training steps per epoch
     STEPS_PER_EPOCH = 100
@@ -137,6 +137,7 @@ class NeveraDataset(utils.Dataset):
             image_path = os.path.join(dataset_dir, a['filename'])
             image = skimage.io.imread(image_path)
             height, width = image.shape[:2]
+            self.add_image()
 
             self.add_image(
                 "nevera",
