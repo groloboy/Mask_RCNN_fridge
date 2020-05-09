@@ -90,8 +90,8 @@ class NeveraDataset(utils.Dataset):
         """
         # Add classes. We have only one class to add.
         self.add_class("nevera", 1, "nevera")
-        self.add_class("estufa", 2, "estufa")
-        self.add_class("microondas", 3, "microondas")
+        self.add_class("nevera", 2, "estufa")
+        self.add_class("nevera", 3, "microondas")
 
         # Train or validation dataset?
         assert subset in ["train", "val"]
@@ -137,7 +137,6 @@ class NeveraDataset(utils.Dataset):
             image_path = os.path.join(dataset_dir, a['filename'])
             image = skimage.io.imread(image_path)
             height, width = image.shape[:2]
-            self.add_image()
 
             self.add_image(
                 "nevera",

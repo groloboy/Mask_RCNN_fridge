@@ -547,15 +547,6 @@
             "height": 238
         }
     },
-    "images_aug_image_126.jpg-1": {
-        "filename": "images_aug_image_126.jpg",
-        "size": 19137,
-        "regions": [],
-        "file_attributes": {
-            "width": 320,
-            "height": 198
-        }
-    },
     "images_aug_image_130.jpg-1": {
         "filename": "images_aug_image_130.jpg",
         "size": 13834,
@@ -966,12 +957,6 @@
                 }
             }
         ],
-        "file_attributes": {}
-    },
-    "image_57.jpg18849": {
-        "filename": "image_57.jpg",
-        "size": 18849,
-        "regions": [],
         "file_attributes": {}
     },
     "image_63.jpg8028": {
