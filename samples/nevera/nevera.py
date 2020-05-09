@@ -90,6 +90,8 @@ class NeveraDataset(utils.Dataset):
         """
         # Add classes. We have only one class to add.
         self.add_class("nevera", 1, "nevera")
+        self.add_class("estufa", 2, "estufa")
+        self.add_class("microondas", 3, "microondas")
 
         # Train or validation dataset?
         assert subset in ["train", "val"]
