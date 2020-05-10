@@ -81,6 +81,34 @@ class NeveraConfig(Config):
 #  Dataset
 ############################################################
 
+class NeveraConfig(Config):
+    """Configuration for training on the toy  dataset.
+    Derives from the base Config class and overrides some values.
+    """
+    # Give the configuration a recognizable name
+    NAME = "nevera"
+    IMAGE_RESIZE_MODE = "square"
+    IMAGE_MIN_DIM = 198
+    IMAGE_MAX_DIM = 320
+    IMAGE_MIN_SCALE = 0
+    # We use a GPU with 12GB memory, which can fit two images.
+    # Adjust down if you use a smaller GPU.
+    IMAGES_PER_GPU = 2
+
+    # Number of classes (including background)
+    NUM_CLASSES = 1 + 3  # Background + nevera + estufa + microondas
+
+    # Number of training steps per epoch
+    STEPS_PER_EPOCH = 100
+
+    # Skip detections with < 90% confidence
+    DETECTION_MIN_CONFIDENCE = 0.9
+
+
+############################################################
+#  Dataset
+############################################################
+
 class NeveraDataset(utils.Dataset):
 
     def load_nevera(self, dataset_dir, subset):
@@ -89,7 +117,7 @@ class NeveraDataset(utils.Dataset):
         subset: Subset to load: train or val
         """
         # Add classes. We have only one class to add.
-        self.add_class("nevera", 1, "nevera")
+        self.add_class("nevera", 1, "nevera")        
         self.add_class("nevera", 2, "estufa")
         self.add_class("nevera", 3, "microondas")
 
@@ -128,8 +156,10 @@ class NeveraDataset(utils.Dataset):
             # The if condition is needed to support VIA versions 1.x and 2.x.
             if type(a['regions']) is dict:
                 polygons = [r['shape_attributes'] for r in a['regions'].values()]
+                categories = [r['region_attributes'] for r in a['regions'].values()]
             else:
-                polygons = [r['shape_attributes'] for r in a['regions']] 
+                polygons = [r['shape_attributes'] for r in a['regions']]
+                categories = [r['region_attributes'] for r in a['regions']]
 
             # load_mask() needs the image size to convert polygons to masks.
             # Unfortunately, VIA doesn't include it in JSON, so we must read
@@ -143,7 +173,8 @@ class NeveraDataset(utils.Dataset):
                 image_id=a['filename'],  # use file name as a unique image id
                 path=image_path,
                 width=width, height=height,
-                polygons=polygons)
+                polygons=polygons,
+                categories=categories)
 
     def load_mask(self, image_id):
         """Generate instance masks for an image.
@@ -166,10 +197,10 @@ class NeveraDataset(utils.Dataset):
             # Get indexes of pixels inside the polygon and set them to 1
             rr, cc = skimage.draw.polygon(p['all_points_y'], p['all_points_x'])
             mask[rr, cc, i] = 1
-
-        # Return mask, and array of class IDs of each instance. Since we have
-        # one class ID only, we return an array of 1s
-        return mask.astype(np.bool), np.ones([mask.shape[-1]], dtype=np.int32)
+        
+        class_ids = np.array([self.class_names.index(c['shape']) for c in info["categories"]])
+       
+        return mask.astype(np.bool), class_ids.astype(np.int32)
 
     def image_reference(self, image_id):
         """Return the path of the image."""
