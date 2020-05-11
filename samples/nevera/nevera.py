@@ -68,7 +68,7 @@ class NeveraConfig(Config):
     IMAGES_PER_GPU = 2
 
     # Number of classes (including background)
-    NUM_CLASSES = 1 + 5  # Background + nevera + estufa + microondas + television + radio
+    NUM_CLASSES = 1 + 5  # Background + nevera + estufa + microondas + televisor + radio
 
     # Number of training steps per epoch
     STEPS_PER_EPOCH = 250
@@ -92,7 +92,7 @@ class NeveraDataset(utils.Dataset):
         self.add_class("nevera", 1, "nevera")        
         self.add_class("nevera", 2, "estufa")
         self.add_class("nevera", 3, "microondas")
-        self.add_class("nevera", 4, "television")
+        self.add_class("nevera", 4, "televisor")
         self.add_class("nevera", 5, "radio")
 
         # Train or validation dataset?
