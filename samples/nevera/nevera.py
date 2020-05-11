@@ -68,10 +68,10 @@ class NeveraConfig(Config):
     IMAGES_PER_GPU = 2
 
     # Number of classes (including background)
-    NUM_CLASSES = 1 + 3  # Background + nevera + estufa + microondas
+    NUM_CLASSES = 1 + 5  # Background + nevera + estufa + microondas + television + radio
 
     # Number of training steps per epoch
-    STEPS_PER_EPOCH = 500
+    STEPS_PER_EPOCH = 250
 
     # Skip detections with < 90% confidence
     DETECTION_MIN_CONFIDENCE = 0.9
@@ -92,6 +92,8 @@ class NeveraDataset(utils.Dataset):
         self.add_class("nevera", 1, "nevera")        
         self.add_class("nevera", 2, "estufa")
         self.add_class("nevera", 3, "microondas")
+        self.add_class("nevera", 4, "television")
+        self.add_class("nevera", 5, "radio")
 
         # Train or validation dataset?
         assert subset in ["train", "val"]

@@ -1,6 +1,5 @@
 # Data files and directories common in repo root
 logs/
-*.h5
 results/
 temp/
 
@@ -42,7 +41,7 @@ pip-delete-this-directory.txt
 *.ipynb
 # Dropbox
 .dropbox.attr
-
+*.h5
 # Jupyter Notebook
 .ipynb_checkpoints
 
